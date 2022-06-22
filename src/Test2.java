@@ -1,33 +1,41 @@
 public class Test2 {
-    private int a;
-    private int b;
+    private Object object1;
+    private Object object2;
 
-    private Object object1 = new Object();
+    public Test2(Object object1, Object object2) {
+        this.object1 = object1;
+        this.object2 = object2;
 
-    private Object object2 = new Object();
-
-    public Test2(int a, int b) {
-        this.a = a;
-        this.b = b;
     }
 
     public void method1() {
-        synchronized (this) {
-            System.out.println(Thread.currentThread() + " a: " + " Time :" + System.currentTimeMillis());
-            int result = 0;
-            for (int i = 0; i < 20000; i++) {
-                result += Math.pow(a, i);
-            }
+        int result = 1;
+        for (int i = 0; i < 50000; i++) {
+            result += Math.pow(result, i);
         }
+        System.out.println("Thread 1 -        end Time:" + System.currentTimeMillis());
+        synchronized (this.object1) {
+            int result1 = 1;
+            for (int i = 0; i < 50000; i++) {
+                result1 += Math.pow(result1, i);
+            }
+            System.out.println("Thread 1 - Dongbo end Time:" + System.currentTimeMillis());
+        }
+
     }
 
     public void method2() {
-        synchronized (this) {
-            System.out.println(Thread.currentThread() + " b: " + " Time :" + System.currentTimeMillis());
-            int result = 0;
-            for (int i = 0; i < 20000; i++) {
-                result += Math.pow(a, i);
+        int result = 1;
+        for (int i = 0; i < 50000; i++) {
+            result += Math.pow(result, i);
+        }
+        System.out.println("Thread 2 -        end Time:" + System.currentTimeMillis());
+        synchronized (this.object2) {
+            int result1 = 1;
+            for (int i = 0; i < 50000; i++) {
+                result1 += Math.pow(result1, i);
             }
+            System.out.println("Thread 2 - Dongbo end Time:" + System.currentTimeMillis());
         }
     }
 
